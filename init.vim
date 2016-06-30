@@ -13,9 +13,16 @@ Plug 'artoj/qmake-syntax-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'stephpy/vim-yaml'
+
+" javascript world highlighting
+Plug 'elzr/vim-json'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --omnisharp-completer --tern-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer' }
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 "Plug 'fatih/vim-go'
 Plug 'nvie/vim-flake8'
@@ -23,6 +30,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'justinj/vim-react-snippets'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
@@ -39,6 +47,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-repeat'
+Plug 'easymotion/vim-easymotion'
 
 " better statusline
 Plug 'vim-airline/vim-airline'
@@ -83,6 +92,12 @@ set laststatus=2             " window will always have a status line
 set nobackup
 set noswapfile
 let &colorcolumn="80,".join(range(119,999),",")
+
+" turn on rainbow parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBrace
 " }}} UI Config
 
 " Search {{{
@@ -161,6 +176,11 @@ map <C-n> :NERDTreeToggle<CR>
 " }}}
 
 " YCM mappings {{{
+
+" invert TAB and S-TAB
+"let g:ycm_key_list_select_completion = ['<S-TAB>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<TAB>', '<Up>']
+
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 " }}}
 
