@@ -186,6 +186,10 @@ nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " }}}
 
+" JSX {{{
+let g:jsx_ext_required = 0  " enable JSX in .js files
+" }}}
+
 " NERDTree {{{
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
