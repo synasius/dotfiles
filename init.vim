@@ -16,9 +16,14 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'stephpy/vim-yaml'
 
+" css and sass
+Plug 'hail2u/vim-css3-syntax'
+Plug 'cakebaker/scss-syntax.vim'
+
 " javascript world highlighting
 Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
+Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
@@ -233,11 +238,12 @@ let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 " }}}
 
-" Functions {{{
+" Functions and autos {{{
 " trailing whitespace
 match ErrorMsg '\s\+$'
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
 autocmd BufWritePre * :call TrimWhiteSpace()
+au BufRead,BufNewFile *.scss set filetype=scss.css
 " }}}
