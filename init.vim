@@ -13,8 +13,9 @@ Plug 'artoj/qmake-syntax-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
-Plug 'kien/rainbow_parentheses.vim'
+"Plug 'kien/rainbow_parentheses.vim'
 Plug 'stephpy/vim-yaml'
+Plug 'django.vim'
 
 " css and sass
 Plug 'hail2u/vim-css3-syntax'
@@ -62,6 +63,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 " }}} vim-plug
 
@@ -99,10 +103,10 @@ set noswapfile
 let &colorcolumn="80,".join(range(119,999),",")
 
 " turn on rainbow parentheses
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBrace
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBrace
 " }}} UI Config
 
 " Search {{{
@@ -211,8 +215,8 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
 " YCM {{{
-"let g:ycm_server_keep_logfiles = 1
-"let g:ycm_server_log_level = 'debug'
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
 let g:ycm_filetype_specific_completion_to_disable = {
     \ 'gitcommit': 1,
     \ 'python': 1
