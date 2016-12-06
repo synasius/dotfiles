@@ -97,6 +97,7 @@ alias cdworkspace='cd ~/workspace'
 
 # Pythonz
 [[ -s $HOME/.pythonz/etc/bashrc ]] && source $HOME/.pythonz/etc/bashrc
+
 export PATH=$HOME/local/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
@@ -124,3 +125,19 @@ export PATH="$HOME/local/tmux/bin:$PATH"
 export EDITOR=nvim
 export PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 source "$HOME/.bin/tmuxinator.zsh"
+
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+# pip zsh completion end
+
+# Dokku configs
+alias dokku='bash $HOME/.dokku/contrib/dokku_client.sh'
+export DOKKU_HOST=paas.evo9.it

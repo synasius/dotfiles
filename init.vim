@@ -32,7 +32,6 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-c
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 "Plug 'fatih/vim-go'
 Plug 'nvie/vim-flake8'
-Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -40,8 +39,9 @@ Plug 'justinj/vim-react-snippets'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'rking/ag.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'dkprice/vim-easygrep'
 
 " note
@@ -53,7 +53,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
 Plug 'easymotion/vim-easymotion'
+Plug 'machakann/vim-highlightedyank'
 
 " better statusline
 Plug 'vim-airline/vim-airline'
@@ -215,11 +217,11 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
 " YCM {{{
+let g:ycm_python_binary_path = 'python3'
 let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_log_level = 'debug'
 let g:ycm_filetype_specific_completion_to_disable = {
     \ 'gitcommit': 1,
-    \ 'python': 1
     \}
 let g:ycm_rust_src_path='/home/synasius/workspace/rust/src/'
 let g:ycm_complete_in_comments = 1
