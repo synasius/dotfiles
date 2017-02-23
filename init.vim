@@ -13,29 +13,30 @@ Plug 'artoj/qmake-syntax-vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
-"Plug 'kien/rainbow_parentheses.vim'
 Plug 'stephpy/vim-yaml'
 Plug 'django.vim'
+
+" python
+Plug 'nvie/vim-flake8'
 
 " css and sass
 Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 
 " javascript world highlighting
-Plug 'elzr/vim-json'
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --racer-completer --tern-completer' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
-"Plug 'fatih/vim-go'
-Plug 'nvie/vim-flake8'
-Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+Plug 'carlitux/deoplete-ternjs'
+" jedi-vim is needed to navigate code
+Plug 'davidhalter/jedi-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'justinj/vim-react-snippets'
+Plug 'ervandew/supertab'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
@@ -71,6 +72,11 @@ Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 " }}} vim-plug
 
+" neovim {{{
+let g:python_host_prog = '/home/synasius/.virtualenvs/neovim2/bin/python'
+let g:python3_host_prog = '/home/synasius/.virtualenvs/neovim3/bin/python'
+" }}}
+
 " Colors {{{
 set termguicolors
 colorscheme gruvbox
@@ -103,12 +109,6 @@ set laststatus=2             " window will always have a status line
 set nobackup
 set noswapfile
 let &colorcolumn="80,".join(range(119,999),",")
-
-" turn on rainbow parentheses
-"au VimEnter * RainbowParenthesesToggle
-"au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare
-"au Syntax * RainbowParenthesesLoadBrace
 " }}} UI Config
 
 " Search {{{
@@ -192,7 +192,7 @@ map <C-n> :NERDTreeToggle<CR>
 "let g:ycm_key_list_select_completion = ['<S-TAB>', '<Down>']
 "let g:ycm_key_list_previous_completion = ['<TAB>', '<Up>']
 
-nnoremap <leader>g :YcmCompleter GoTo<CR>
+"nnoremap <leader>g :YcmCompleter GoTo<CR>
 " }}}
 
 " }}}
@@ -229,6 +229,20 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's
 
+" }}}
+
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+
+call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+" }}}
+
+" jedi vim {{{
+let g:jedi#completions_enabled = 0
+" }}}
+
+" Supertab {{{
+let g:SuperTabDefaultCompletionType = "<c-n>"
 " }}}
 
 " UltiSnips {{{

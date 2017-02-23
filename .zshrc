@@ -49,7 +49,7 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git gitignore sprunge)
+plugins=(zsh-completions git gitignore)
 
 # User configuration
 
@@ -62,11 +62,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -113,31 +109,25 @@ export PATH="$HOME/.cargo/bin:$PATH"
 #[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # The next line updates PATH for the Google Cloud SDK.
-source "$HOME/local/google-cloud-sdk/path.zsh.inc"
+#source "$HOME/local/google-cloud-sdk/path.zsh.inc"
 
 # The next line enables shell command completion for gcloud.
-source "$HOME/local/google-cloud-sdk/completion.zsh.inc"
+#source "$HOME/local/google-cloud-sdk/completion.zsh.inc"
 
 # add path to local tmux 2.2
 export PATH="$HOME/local/tmux/bin:$PATH"
 
 # add ruby bin to paths to use tmuxinator
-export EDITOR=nvim
 export PATH="$HOME/.gem/ruby/2.3.0/bin:$PATH"
 source "$HOME/.bin/tmuxinator.zsh"
 
-# pip zsh completion start
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip
-# pip zsh completion end
-
 # Dokku configs
-alias dokku='bash $HOME/.dokku/contrib/dokku_client.sh'
-export DOKKU_HOST=paas.evo9.it
+alias dokku='$HOME/.dokku/contrib/dokku_client.sh'
+export DOKKU_HOST=46.101.254.36
+
+# Load completions in ~/.zsh/completions
+fpath=(~/.zsh/completions $fpath)
+autoload -U compinit && compinit
+
+# Qt workspace aliases
+# TODO
