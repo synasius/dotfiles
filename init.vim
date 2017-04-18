@@ -6,6 +6,7 @@ call plug#begin()
 " color scheme
 Plug 'chriskempson/base16-vim'
 Plug 'morhetz/gruvbox'
+Plug 'mhartington/oceanic-next'
 
 " syntax highlighting
 Plug 'peterhoeg/vim-qml'
@@ -15,6 +16,9 @@ Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
 Plug 'django.vim'
+
+" Markdown
+Plug 'suan/vim-instant-markdown'
 
 " python
 Plug 'nvie/vim-flake8'
@@ -69,6 +73,9 @@ Plug 'airblade/vim-gitgutter'
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
 
+" icons
+Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 " }}} vim-plug
 
@@ -79,8 +86,10 @@ let g:python3_host_prog = '/home/synasius/.virtualenvs/neovim3/bin/python'
 
 " Colors {{{
 set termguicolors
-colorscheme gruvbox
-set background=dark
+"colorscheme gruvbox
+"set background=dark
+syntax enable
+colorscheme OceanicNext
 " }}} Colors
 
 " Spaces & Tabs {{{
@@ -211,6 +220,7 @@ let g:cpp_class_scope_highlight = 1
 " }}}
 
 " Airline {{{
+let g:airline_theme = 'oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -256,6 +266,10 @@ let g:UltiSnipsUsePythonVersion = 2
 " Flake8 {{{
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
+" }}}
+
+" Instant Mark Down {{{
+let g:instant_markdown_autostart = 0
 " }}}
 
 " Functions and autos {{{
