@@ -49,10 +49,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dkprice/vim-easygrep'
 
-" note
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-notes'
-
 " editing
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
@@ -79,9 +75,9 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 " }}} vim-plug
 
-" neovim {{{
-let g:python_host_prog = '/home/synasius/.virtualenvs/neovim2/bin/python'
-let g:python3_host_prog = '/home/synasius/.virtualenvs/neovim3/bin/python'
+" Neovim {{{
+let g:python_host_prog = '/home/sinasio/.virtualenvs/neovim2/bin/python'
+let g:python3_host_prog = '/home/sinasio/.virtualenvs/neovim3/bin/python'
 " }}}
 
 " Colors {{{
@@ -224,21 +220,6 @@ let g:airline_theme = 'oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-" }}}
-
-" YCM {{{
-let g:ycm_python_binary_path = 'python3'
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
-let g:ycm_filetype_specific_completion_to_disable = {
-    \ 'gitcommit': 1,
-    \}
-let g:ycm_rust_src_path='/home/synasius/workspace/rust/src/'
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's
-
 " }}}
 
 " Deoplete {{{
