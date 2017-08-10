@@ -15,7 +15,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
-Plug 'django.vim'
 
 " Markdown
 Plug 'suan/vim-instant-markdown'
@@ -36,6 +35,7 @@ Plug 'mxw/vim-jsx'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-jedi'
 Plug 'carlitux/deoplete-ternjs'
+Plug 'sebastianmarkow/deoplete-rust'
 " jedi-vim is needed to navigate code
 Plug 'davidhalter/jedi-vim'
 Plug 'SirVer/ultisnips'
@@ -226,6 +226,10 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:deoplete#enable_at_startup = 1
 
 call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+
+let g:deoplete#sources#rust#racer_binary='/home/sinasio/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path = '/home/sinasio/workspace/rust/src'
+
 " }}}
 
 " jedi vim {{{
@@ -259,6 +263,11 @@ match ErrorMsg '\s\+$'
 function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
-autocmd BufWritePre * :call TrimWhiteSpace()
-au BufRead,BufNewFile *.scss set filetype=scss.css
+
+augroup stuff
+    autocmd!
+    autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd BufRead,BufNewFile *.scss set filetype=scss.css
+augroup END
+
 " }}}
