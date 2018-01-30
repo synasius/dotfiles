@@ -32,15 +32,9 @@ Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-jedi'
-Plug 'carlitux/deoplete-ternjs'
-Plug 'sebastianmarkow/deoplete-rust'
-" jedi-vim is needed to navigate code
-Plug 'davidhalter/jedi-vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'ervandew/supertab'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
@@ -113,6 +107,7 @@ set showmatch                " highlight matching brace
 set laststatus=2             " window will always have a status line
 set nobackup
 set noswapfile
+set mouse=a
 let &colorcolumn="80,".join(range(119,999),",")
 " }}} UI Config
 
@@ -187,18 +182,11 @@ map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " fzf
 nnoremap <c-p> :FZF<CR>
 
-" NERDTree mappings {{{
+" NERDTree mappings
 map <C-n> :NERDTreeToggle<CR>
-" }}}
 
-" YCM mappings {{{
-
-" invert TAB and S-TAB
-"let g:ycm_key_list_select_completion = ['<S-TAB>', '<Down>']
-"let g:ycm_key_list_previous_completion = ['<TAB>', '<Up>']
-
-"nnoremap <leader>g :YcmCompleter GoTo<CR>
-" }}}
+" YCM mappings
+nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " }}}
 
@@ -222,22 +210,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
-
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
-
-let g:deoplete#sources#rust#racer_binary='/home/sinasio/.cargo/bin/racer'
-let g:deoplete#sources#rust#rust_source_path = '/home/sinasio/workspace/rust/src'
-
-" }}}
-
-" jedi vim {{{
-let g:jedi#completions_enabled = 0
-" }}}
-
-" Supertab {{{
-let g:SuperTabDefaultCompletionType = "<c-n>"
+" YCM {{{
+let g:ycm_python_binary_path = 'python'
 " }}}
 
 " UltiSnips {{{
