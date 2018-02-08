@@ -15,6 +15,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
+Plug 'rhysd/vim-clang-format'
 
 " Markdown
 Plug 'suan/vim-instant-markdown'
@@ -169,12 +170,6 @@ nmap <silent> <left> :cprev<CR>
 nnoremap <tab> :bn<CR>
 nnoremap <s-tab> :bp<CR>
 nnoremap <leader>bd :bd<CR>
-
-" split navigation
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
 
 " fast header source switch
 map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
