@@ -23,3 +23,5 @@
     prompt = false
 [diff]
     tool = vimdiff
+[user]
+	signingkey = synasius@gmail.com

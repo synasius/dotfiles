@@ -16,12 +16,14 @@ Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
+Plug 'vim-syntastic/syntastic'
 
 " Markdown
 Plug 'suan/vim-instant-markdown'
 
 " python
 Plug 'nvie/vim-flake8'
+Plug 'ambv/black'
 
 " css and sass
 Plug 'hail2u/vim-css3-syntax'
@@ -33,7 +35,7 @@ Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --js-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -42,7 +44,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'dkprice/vim-easygrep'
 
 " editing
 Plug 'scrooloose/nerdcommenter'
@@ -110,6 +111,8 @@ set nobackup
 set noswapfile
 set mouse=a
 let &colorcolumn="80,".join(range(119,999),",")
+
+set guifont=SauceCodePro\ Nerd\ Font\ 13
 " }}} UI Config
 
 " Search {{{
@@ -119,12 +122,18 @@ set ignorecase      " ignore case when searching
 set smartcase       " ignore case if search pattern is lower case
                     " case-sensitive otherwise
 
-" set Ag as the grep command
-if executable('ag')
-    " Note we extract the column as well as the file and line number
-    set grepprg=ag\ --nogroup\ --nocolor\ --column
-    set grepformat=%f:%l:%c%m
+" set ripgrep as the grep command
+if executable('rg')
+    set grepprg=rg\ --vimgrep
 endif
+
+command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview('up:60%')
+    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+    \ <bang>0)
+
 " }}} Search
 
 " Folding {{{
@@ -192,6 +201,9 @@ let g:jsx_ext_required = 0  " enable JSX in .js files
 " NERDTree {{{
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 " }}}
 
 " Cpp Enhanced Highlighting {{{
@@ -207,6 +219,15 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " YCM {{{
 let g:ycm_python_binary_path = 'python'
+" }}}
+
+" Syntastic {{{
+let g:syntastic_rust_checkers = ['cargo']
+let g:syntastic_enable_signs = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 " }}}
 
 " UltiSnips {{{
@@ -236,7 +257,9 @@ endfunction
 augroup stuff
     autocmd!
     autocmd BufWritePre * :call TrimWhiteSpace()
+    autocmd BufWritePre *.py execute ':Black'
     autocmd BufRead,BufNewFile *.scss set filetype=scss.css
 augroup END
+
 
 " }}}
