@@ -30,12 +30,15 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'cakebaker/scss-syntax.vim'
 
 " javascript world highlighting
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer --js-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -110,7 +113,7 @@ set laststatus=2             " window will always have a status line
 set nobackup
 set noswapfile
 set mouse=a
-let &colorcolumn="80,".join(range(119,999),",")
+let &colorcolumn="".join(range(90,999),",")
 
 set guifont=SauceCodePro\ Nerd\ Font\ 13
 " }}} UI Config
@@ -228,6 +231,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+" }}}
+
+" Prettier {{{
+let g:prettier#config#single_quote = 'false'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#jsx_bracket_same_line = 'false'
+let g:prettier#config#arrow_parens = 'avoid'
+let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#parser = 'babylon'
 " }}}
 
 " UltiSnips {{{
