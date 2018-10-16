@@ -130,13 +130,6 @@ if executable('rg')
     set grepprg=rg\ --vimgrep
 endif
 
-command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-    \   <bang>0 ? fzf#vim#with_preview('up:60%')
-    \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-    \ <bang>0)
-
 " }}} Search
 
 " Folding {{{
@@ -195,6 +188,10 @@ map <C-n> :NERDTreeToggle<CR>
 " YCM mappings
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
+" }}}
+
+" FZF {{{
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 " }}}
 
 " JSX {{{
