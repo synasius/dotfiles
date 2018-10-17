@@ -75,8 +75,8 @@ call plug#end()
 " }}} vim-plug
 
 " Neovim {{{
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
+" let g:python_host_prog = '/usr/bin/python2'
+" let g:python3_host_prog = '/usr/bin/python3'
 " }}}
 
 " Colors {{{
@@ -250,10 +250,6 @@ let g:UltiSnipsUsePythonVersion = 2
 " Flake8 {{{
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
-" }}}
-
-" Instant Mark Down {{{
-let g:instant_markdown_autostart = 0
 " }}}
 
 " Functions and autos {{{

@@ -24,4 +24,4 @@
 [diff]
     tool = vimdiff
 [user]
-	signingkey = synasius@gmail.com
+    signingkey = synasius@gmail.com
