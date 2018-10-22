@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+if (! (( $+commands[curl] )) ); then
+    sudo apt install -y curl
+fi
 if (! (( $+commands[tree] )) ); then
     sudo apt install -y tree
 fi

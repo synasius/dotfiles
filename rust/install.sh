@@ -1,11 +1,13 @@
 #!/bin/zsh
 
-if (! (( $+commands[rustup] )) ); then
+if (! (( $+commands[cargo] )) ); then
     # Intall rust through rustup tool
     curl https://sh.rustup.rs -sSf | sh -s -- -y --no-modify-path
 
-    # After installing rust we add ripgrep
-    cargo install ripgrep
+    # this adds cargo binary to the current en
+    source $HOME/.cargo/env 
+fi
 
-    return 1
+if (! (( $+commands[rg] )) ); then
+    cargo install ripgrep
 fi

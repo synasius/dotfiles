@@ -18,14 +18,14 @@ if (! (( $+commands[docker] )) ); then
     sudo apt update && sudo apt install -y docker-ce
 
     # configure docker group to alow non privileged user to run docker
-    sudo groupadd docker
-    sudo usermod -aG docker $USER
+    #sudo groupadd docker
+    #sudo usermod -aG docker $USER
 
     # also disable docker deamon at boot
     sudo systemctl disable docker
 
     # Install docker-compose
-    pip install --user --upgrade docker-compose
+    pip3 install --user --upgrade docker-compose
 
     return 1
 fi
