@@ -14,8 +14,10 @@ if [ ! -f $HOME/.config/nvim/init.vim ]; then
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
     mkdir -p $HOME/.config/nvim
+
     # link the nvim directory to the .config nvim directory
     ln -s "$DOTFILES"/nvim/config/init.vim $HOME/.config/nvim/init.vim
+    ln -s "$DOTFILES"/nvim/config/ftdetect $HOME/.config/nvim/ftdetect
 
     # Install everything
     vim +PlugInstall
