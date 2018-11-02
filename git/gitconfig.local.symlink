@@ -6,7 +6,7 @@
     lg = log --color --graph --pretty=format:'%C(bold red)%h%Creset %C(auto)%d%Creset %C(magenta bold)%an %C(dim yellow)(%cr)%Creset\n%s' --abbrev-commit
     lga = !git lg --all
     spush = push --recurse-submodules=on-demand
-    serve = daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/
+    serve = !git daemon --reuseaddr --base-path=. --export-all --verbose
 [color]
     ui = 1
 [push]

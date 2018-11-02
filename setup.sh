@@ -97,6 +97,7 @@ install_deps() {
     info 'installing and configuring dependencies'
 
     _install utils
+    _install antibody
 
     _install zsh
     _install gnome-terminal
@@ -107,6 +108,7 @@ install_deps() {
     _install docker
     _install dropbox
     _install pipenv
+    _install gcloud
 }
 
 

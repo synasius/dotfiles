@@ -18,6 +18,7 @@ if [ ! -f $HOME/.config/nvim/init.vim ]; then
     # link the nvim directory to the .config nvim directory
     ln -s "$DOTFILES"/nvim/config/init.vim $HOME/.config/nvim/init.vim
     ln -s "$DOTFILES"/nvim/config/ftdetect $HOME/.config/nvim/ftdetect
+    ln -s "$DOTFILES"/nvim/config/after $HOME/.config/nvim/after
 
     # Install everything
     vim +PlugInstall
