@@ -19,7 +19,7 @@ if (! (( $+commands[docker] )) ); then
 
     # configure docker group to alow non privileged user to run docker
     #sudo groupadd docker
-    #sudo usermod -aG docker $USER
+    sudo usermod -aG docker $USER
 
     # also disable docker deamon at boot
     sudo systemctl disable docker
