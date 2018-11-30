@@ -21,5 +21,6 @@ if [ ! -f $HOME/.config/nvim/init.vim ]; then
     ln -s "$DOTFILES"/nvim/config/after $HOME/.config/nvim/after
 
     # Install everything
-    vim +PlugInstall
+    echo "Run 'vim +PlugInstall' after the setup finished"
+    # vim +PlugInstall
 fi

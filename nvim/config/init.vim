@@ -18,9 +18,6 @@ Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-syntastic/syntastic'
 
-" Markdown
-Plug 'suan/vim-instant-markdown'
-
 " python
 Plug 'nvie/vim-flake8'
 Plug 'ambv/black'
