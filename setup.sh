@@ -84,10 +84,16 @@ create_symlinks() {
     done
 }
 
+_run() {
+    "$DOTFILES"/$1/install.sh >> "$DOTFILES"/log.txt
+    return $?
+}
+
 _install() {
     info "› $1 ..."
-    if sh -c "$DOTFILES"/$1/install.sh; then
-        success "skipped"
+
+    if (_run $1); then
+        info "skipped"
     else
         success "installed"
     fi
@@ -108,6 +114,7 @@ install_deps() {
     _install docker
     _install dropbox
     _install pipenv
+    _install tox
     _install gcloud
 }
 
