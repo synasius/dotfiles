@@ -35,9 +35,19 @@ Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
@@ -70,6 +80,35 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 " }}} vim-plug
+
+" LanguageClient-neovim and ncm2 autocompletion {{{
+
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
+    \ }
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANTE: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+"" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" }}}
 
 " Neovim {{{
 let g:python_host_prog = '/usr/bin/python2'
@@ -182,7 +221,7 @@ nnoremap <c-p> :FZF<CR>
 " NERDTree mappings
 map <C-n> :NERDTreeToggle<CR>
 
-" YCM mappings
+" YouCompleteMe mappings
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " }}}
@@ -214,7 +253,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
-" YCM {{{
+" YouCompleteMe {{{
 let g:ycm_python_binary_path = 'python'
 let g:ycm_max_diagnostics_to_display = 1000
 " }}}
