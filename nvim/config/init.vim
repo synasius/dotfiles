@@ -35,7 +35,6 @@ Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-"Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -87,26 +86,42 @@ call plug#end()
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ }
+
+function SetLSPShortcuts()
+    nnoremap <silent> <leader>ld :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <silent> <leader>lr :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <silent> <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+    nnoremap <silent> <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+    nnoremap <silent> <leader>lx :call LanguageClient#textDocument_references()<CR>
+    nnoremap <silent> <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+    nnoremap <silent> <leader>lc :call LanguageClient#textDocument_completion()<CR>
+    nnoremap <silent> <leader>lh :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+    nnoremap <silent> <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
+
+augroup LSP
+    autocmd!
+    autocmd FileType rust call SetLSPShortcuts()
+augroup END
+
+" supress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+set shortmess+=c
 
 " enable ncm2 for all buffers
 autocmd BufEnter * call ncm2#enable_for_buffer()
 
+let g:ncm2#matcher="substrfuzzy"
+
 " IMPORTANTE: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
+set completeopt=noinsert,menuone,noselect,preview
 
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-"" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " }}}
 
@@ -221,9 +236,6 @@ nnoremap <c-p> :FZF<CR>
 " NERDTree mappings
 map <C-n> :NERDTreeToggle<CR>
 
-" YouCompleteMe mappings
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-
 " }}}
 
 " FZF {{{
@@ -251,11 +263,6 @@ let g:airline_theme = 'oceanicnext'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-" }}}
-
-" YouCompleteMe {{{
-let g:ycm_python_binary_path = 'python'
-let g:ycm_max_diagnostics_to_display = 1000
 " }}}
 
 " Syntastic {{{
