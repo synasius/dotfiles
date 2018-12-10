@@ -47,6 +47,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-tmux'
 Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-ultisnips'
 
 " navigation/search file
 Plug 'scrooloose/nerdtree'
@@ -107,6 +108,8 @@ augroup LSP
     autocmd FileType rust call SetLSPShortcuts()
 augroup END
 
+" NCM2
+
 " supress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
 set shortmess+=c
@@ -119,9 +122,16 @@ let g:ncm2#matcher="substrfuzzy"
 " IMPORTANTE: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect,preview
 
+" Close the preview window once complete is done
+autocmd CompleteDone * silent! pclose!
+
 " Use <TAB> to select the popup menu:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Press enter key to trigger snippet expansion
+" The parameters are the same as `:help feedkeys()`
+inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " }}}
 
@@ -284,11 +294,14 @@ let g:prettier#config#parser = 'babylon'
 " }}}
 
 " UltiSnips {{{
-let g:UltiSnipsExpandTrigger       = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-let g:UltiSnipsUsePythonVersion = 2
+
+" c-j c-k for moving in snippet
+let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+let g:UltiSnipsJumpForwardTrigger = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsRemoveSelectModeMappings = 0
+
+"let g:UltiSnipsUsePythonVersion = 2
 " }}}
 
 " Flake8 {{{
