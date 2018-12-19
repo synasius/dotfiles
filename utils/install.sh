@@ -27,3 +27,9 @@ fi
 if (! (( $+commands[psql] )) ); then
     sudo apt install -y postgresql-client
 fi
+
+if (! (( $+commands[psql] )) ); then
+    sudo apt install -y gnome-tweaks
+fi
+
+return -1
