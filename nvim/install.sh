@@ -23,4 +23,6 @@ if [ ! -f $HOME/.config/nvim/init.vim ]; then
     # Install everything
     echo "Run 'vim +PlugInstall' after the setup finished"
     # vim +PlugInstall
+
+    return 1
 fi

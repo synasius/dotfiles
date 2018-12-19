@@ -6,3 +6,5 @@ if (( ! $+commands[antibody] )); then
 fi
 
 antibody bundle < $DOTFILES/antibody/zsh_plugins.txt > $HOME/.zsh_plugins.sh
+
+return 1

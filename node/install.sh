@@ -15,4 +15,6 @@ if (! (( $+commands[yarn] )) ); then
     ) && \. "$NVM_DIR/nvm.sh"
 
     nvm install lts/carbon
+
+    return 1
 fi

@@ -140,3 +140,10 @@ test "$(expr "$SHELL" : '.*/\(.*\)')" != "zsh" &&
 echo ''
 echo '  All installed!'
 
+echo 'Things to do:'
+echo '  1 - Download a Nerd Font here: https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/SourceCodePro'
+echo '  2 - Set the font as the monospace font in gnome-tweaks'
+echo '  3 - Install latest release of gopass: https://github.com/gopasspw/gopass/releases/latest'
+echo '  4 - Clone your vault'
+echo '  5 - Install qt'
+
