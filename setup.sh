@@ -146,4 +146,5 @@ echo '  2 - Set the font as the monospace font in gnome-tweaks'
 echo '  3 - Install latest release of gopass: https://github.com/gopasspw/gopass/releases/latest'
 echo '  4 - Clone your vault'
 echo '  5 - Install qt'
+echo '  6 - Install Firefox addons: Multi-Account Container, Facebook Container'
 

@@ -28,8 +28,12 @@ if (! (( $+commands[psql] )) ); then
     sudo apt install -y postgresql-client
 fi
 
-if (! (( $+commands[psql] )) ); then
+if (! (( $+commands[gnome-tweaks] )) ); then
     sudo apt install -y gnome-tweaks
+fi
+
+if (! (( $+commands[xclip] )) ); then
+    sudo apt install -y xclip
 fi
 
 return -1
