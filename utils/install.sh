@@ -28,6 +28,10 @@ if (! (( $+commands[psql] )) ); then
     sudo apt install -y postgresql-client
 fi
 
+if (! (( $+commands[pg_config] )) ); then
+    sudo apt install -y libpq-devel
+fi
+
 if (! (( $+commands[gnome-tweaks] )) ); then
     sudo apt install -y gnome-tweaks
 fi

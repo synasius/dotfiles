@@ -216,6 +216,7 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " YCM {{{
 let g:ycm_python_binary_path = 'python'
+let g:ycm_max_diagnostics_to_display = 1000
 " }}}
 
 " Syntastic {{{
