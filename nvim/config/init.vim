@@ -68,6 +68,14 @@ Plug 'christoomey/vim-tmux-navigator'
 " icons
 Plug 'ryanoasis/vim-devicons'
 
+function! BuildComposer(info)
+  if a:info.status != 'unchanged' || a:info.force
+      !cargo build --release
+  endif
+endfunction
+
+Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+
 call plug#end()
 " }}} vim-plug
 
