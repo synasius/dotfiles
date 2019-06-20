@@ -17,6 +17,8 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-syntastic/syntastic'
+Plug 'psykopear/neovim-package-info', { 'do': './install.sh' }
+
 
 " python
 Plug 'nvie/vim-flake8'
