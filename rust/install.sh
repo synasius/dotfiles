@@ -8,7 +8,7 @@ if (! (( $+commands[cargo] )) ); then
     source $HOME/.cargo/env
 
     # Installing some useful components
-    rustup component add rustfmt clippy rls
+    rustup component add rustfmt clippy rls rust-analysis
 fi
 
 if (! (( $+commands[rg] )) ); then

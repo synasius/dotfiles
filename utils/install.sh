@@ -40,4 +40,8 @@ if (! (( $+commands[xclip] )) ); then
     sudo apt install -y xclip
 fi
 
+if (! (( $+commands[xclip] )) ); then
+    sudo apt install -y cmake
+fi
+
 return -1

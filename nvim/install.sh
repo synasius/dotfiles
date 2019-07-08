@@ -1,13 +1,11 @@
 #!/bin/sh
 
 if [ ! -f $HOME/.config/nvim/init.vim ]; then
+    # install neovim from
+    sudo apt install -y neovim
+
     # Install python3-venv otherwise Black vim plugin won't install
     sudo apt install -y python3-venv
-
-    # Install python2-dev and cmake to build ycmd
-    # Also to build rust completion with racer we should ensure that
-    # rust and rust src are installed
-    sudo apt install -y python2-dev cmake
 
     # Install vim-plug for neovim
     curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -23,6 +21,9 @@ if [ ! -f $HOME/.config/nvim/init.vim ]; then
     # Install everything
     echo "Run 'vim +PlugInstall' after the setup finished"
     # vim +PlugInstall
+
+    echo "You also might want to install unstable release of Neovim from ppa"
+    echo ">> sudo add-apt-repository ppa:neovim-ppa/unstable"
 
     return 1
 fi

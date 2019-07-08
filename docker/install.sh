@@ -13,7 +13,7 @@ if (! (( $+commands[docker] )) ); then
 
     # install repository for bionic because cosmic it's not available yet
     sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu disco stable"
 
     sudo apt update && sudo apt install -y docker-ce
 

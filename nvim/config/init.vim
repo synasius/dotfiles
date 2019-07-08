@@ -17,7 +17,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
 Plug 'vim-syntastic/syntastic'
-Plug 'psykopear/neovim-package-info', { 'do': './install.sh' }
+"Plug 'psykopear/neovim-package-info', { 'do': './install.sh' }
 
 
 " python
@@ -30,14 +30,18 @@ Plug 'cakebaker/scss-syntax.vim'
 
 " javascript world highlighting
 Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+            \ 'do': 'yarn install',
+            \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer --rust-completer' }
+Plug 'lifepillar/vim-mucomplete'
+Plug 'autozimu/LanguageClient-neovim', {
+            \ 'branch': 'next',
+            \ 'do': 'bash install.sh',
+            \ }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -71,9 +75,9 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ryanoasis/vim-devicons'
 
 function! BuildComposer(info)
-  if a:info.status != 'unchanged' || a:info.force
-      !cargo build --release
-  endif
+    if a:info.status != 'unchanged' || a:info.force
+        !cargo build --release
+    endif
 endfunction
 
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
@@ -82,8 +86,34 @@ call plug#end()
 " }}} vim-plug
 
 " Neovim {{{
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
+"let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/home/sinasio/.vim/neovim/bin/python'
+" }}}
+
+" MUcomplete and completion {{{
+set completeopt+=menuone,noselect
+set shortmess+=c
+set belloff+=ctrlg
+
+let g:LanguageClient_serverCommands = {
+            \ 'cpp': ['/usr/bin/clangd'],
+            \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+            \ }
+let g:LanguageClient_loggingFile = expand('~/.LanguageClient.log')
+
+let g:mucomplete#completion_delay = 50
+let g:mucomplete#reopen_immediately = 0
+
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {
+            \ 'default': ['path', 'omni', 'keyn', 'dict', 'uspl', 'ulti'],
+            \ }
+
+" Expands the snippet on Enter
+inoremap <silent> <expr> <plug>MyCR
+            \ mucomplete#ultisnips#expand_snippet("\<cr>")
+imap <cr> <plug>MyCR
+
 " }}}
 
 " Colors {{{
@@ -130,7 +160,7 @@ set incsearch       " search as characters are entered
 set hlsearch        " highlight matche
 set ignorecase      " ignore case when searching
 set smartcase       " ignore case if search pattern is lower case
-                    " case-sensitive otherwise
+" case-sensitive otherwise
 
 " set ripgrep as the grep command
 if executable('rg')
@@ -192,8 +222,15 @@ nnoremap <c-p> :FZF<CR>
 " NERDTree mappings
 map <C-n> :NERDTreeToggle<CR>
 
-" YCM mappings
-nnoremap <leader>g :YcmCompleter GoTo<CR>
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+
+" LanguageClient mappings
+nnoremap <silent> <leader>m :call LanguageClient_contextMenu()<CR>
+nnoremap <silent> <leader>g :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <leader>r :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> <leader>h :call LanguageClient#textDocument_hover()<CR>
 
 " }}}
 
@@ -224,13 +261,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
-" YCM {{{
-let g:ycm_python_binary_path = 'python'
-let g:ycm_max_diagnostics_to_display = 1000
-" }}}
-
 " Syntastic {{{
-let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_enable_signs = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
@@ -248,11 +279,10 @@ let g:prettier#config#parser = 'babylon'
 " }}}
 
 " UltiSnips {{{
-let g:UltiSnipsExpandTrigger       = "<c-j>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsExpandTrigger       = "<f5>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-b>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-let g:UltiSnipsUsePythonVersion = 2
 " }}}
 
 " Flake8 {{{

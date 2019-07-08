@@ -112,7 +112,7 @@ install_deps() {
     _install nvim
 
     _install docker
-    _install dropbox
+    _install mega
     _install pipenv
     _install tox
     _install gcloud
