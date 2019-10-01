@@ -16,13 +16,12 @@ Plug 'rust-lang/rust.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
-Plug 'vim-syntastic/syntastic'
 "Plug 'psykopear/neovim-package-info', { 'do': './install.sh' }
 
 
 " python
 Plug 'nvie/vim-flake8'
-Plug 'ambv/black'
+Plug 'psf/black'
 
 " css and sass
 Plug 'hail2u/vim-css3-syntax'
@@ -32,6 +31,8 @@ Plug 'cakebaker/scss-syntax.vim'
 Plug 'prettier/vim-prettier', {
             \ 'do': 'yarn install',
             \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+Plug 'leafgarland/typescript-vim', {
+            \ 'for': ['typescript'] }
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'mxw/vim-jsx'
@@ -42,6 +43,7 @@ Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
             \ }
+"Plug 'davidhalter/jedi-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -91,13 +93,20 @@ let g:python3_host_prog = '/home/sinasio/.vim/neovim/bin/python'
 " }}}
 
 " MUcomplete and completion {{{
+set completeopt-=preview
 set completeopt+=menuone,noselect
 set shortmess+=c
 set belloff+=ctrlg
 
+" To enable logging on the  python language server:
+" 'python': ['pyls', '-vv', '--log-file', '~/.pyls.log'],
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['/usr/bin/clangd'],
+            \ 'python': ['pyls'],
             \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+            \ 'typescript': ['typescript-language-server', '--stdio'],
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ 'javascript.jsx': ['javascript-typescript-stdio'],
             \ }
 let g:LanguageClient_loggingFile = expand('~/.LanguageClient.log')
 
@@ -106,7 +115,7 @@ let g:mucomplete#reopen_immediately = 0
 
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#chains = {
-            \ 'default': ['path', 'omni', 'keyn', 'dict', 'uspl', 'ulti'],
+            \ 'default': ['path', 'omni', 'keyn', 'incl', 'dict', 'uspl', 'ulti'],
             \ }
 
 " Expands the snippet on Enter
@@ -261,14 +270,6 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " }}}
 
-" Syntastic {{{
-let g:syntastic_enable_signs = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" }}}
-
 " Prettier {{{
 let g:prettier#config#single_quote = 'false'
 let g:prettier#config#bracket_spacing = 'true'
@@ -294,7 +295,9 @@ let g:flake8_show_in_file=1
 " trailing whitespace
 match ErrorMsg '\s\+$'
 function! TrimWhiteSpace()
-    %s/\s\+$//e
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
 endfunction
 
 augroup stuff
@@ -303,6 +306,5 @@ augroup stuff
     autocmd BufWritePre *.py execute ':Black'
     autocmd BufRead,BufNewFile *.scss set filetype=scss.css
 augroup END
-
 
 " }}}
