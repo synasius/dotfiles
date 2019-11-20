@@ -4,46 +4,26 @@
 call plug#begin()
 
 " color scheme
-Plug 'chriskempson/base16-vim'
-Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 
 " syntax highlighting
-Plug 'peterhoeg/vim-qml'
-Plug 'artoj/qmake-syntax-vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'rust-lang/rust.vim'
-Plug 'tikhomirov/vim-glsl'
-Plug 'stephpy/vim-yaml'
 Plug 'rhysd/vim-clang-format'
-"Plug 'psykopear/neovim-package-info', { 'do': './install.sh' }
-
+Plug 'fedorenchik/qt-support.vim'
+Plug 'sheerun/vim-polyglot'
 
 " python
-Plug 'nvie/vim-flake8'
 Plug 'psf/black'
 
-" css and sass
-Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
-
-" javascript world highlighting
 Plug 'prettier/vim-prettier', {
             \ 'do': 'yarn install',
             \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
-Plug 'leafgarland/typescript-vim', {
-            \ 'for': ['typescript'] }
-Plug 'pangloss/vim-javascript'
-Plug 'isRuslan/vim-es6'
-Plug 'mxw/vim-jsx'
 
 " auto complete
-Plug 'lifepillar/vim-mucomplete'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'autozimu/LanguageClient-neovim', {
             \ 'branch': 'next',
             \ 'do': 'bash install.sh',
             \ }
-"Plug 'davidhalter/jedi-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
@@ -92,9 +72,9 @@ call plug#end()
 let g:python3_host_prog = '/home/sinasio/.vim/neovim/bin/python'
 " }}}
 
-" MUcomplete and completion {{{
+" Completion {{{
 set completeopt-=preview
-set completeopt+=menuone,noselect
+set completeopt+=menuone,noselect,noinsert
 set shortmess+=c
 set belloff+=ctrlg
 
@@ -110,25 +90,24 @@ let g:LanguageClient_serverCommands = {
             \ }
 let g:LanguageClient_loggingFile = expand('~/.LanguageClient.log')
 
-let g:mucomplete#completion_delay = 50
-let g:mucomplete#reopen_immediately = 0
+let g:deoplete#enable_at_startup = 1
 
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#chains = {
-            \ 'default': ['path', 'omni', 'keyn', 'incl', 'dict', 'uspl', 'ulti'],
-            \ }
+inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#manual_complete()
+inoremap <silent><expr> <C-Space> deoplete#manual_complete()
 
-" Expands the snippet on Enter
-inoremap <silent> <expr> <plug>MyCR
-            \ mucomplete#ultisnips#expand_snippet("\<cr>")
-imap <cr> <plug>MyCR
+inoremap <silent><expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 " }}}
 
 " Colors {{{
 set termguicolors
-"colorscheme gruvbox
-"set background=dark
 syntax enable
 colorscheme OceanicNext
 " }}} Colors
@@ -247,10 +226,6 @@ nnoremap <silent> <leader>h :call LanguageClient#textDocument_hover()<CR>
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 " }}}
 
-" JSX {{{
-let g:jsx_ext_required = 0  " enable JSX in .js files
-" }}}
-
 " NERDTree {{{
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
@@ -280,15 +255,10 @@ let g:prettier#config#parser = 'babylon'
 " }}}
 
 " UltiSnips {{{
-let g:UltiSnipsExpandTrigger       = "<f5>"
+let g:UltiSnipsExpandTrigger       = "<c-j>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-b>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
 let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-" }}}
-
-" Flake8 {{{
-let g:flake8_show_in_gutter=1
-let g:flake8_show_in_file=1
 " }}}
 
 " Functions and autos {{{
